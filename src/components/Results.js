@@ -2,7 +2,8 @@ import React from "react";
 
 function Results(props) {
   return (
-    <div className={props.className} style={props.style}>
+    // <div className={props.className} style={props.style}>
+    <div className='results' style={props.style}>
       <div className="headers">
         <pre>{JSON.stringify(props.headers, null, props.tabWidth)}</pre>
       </div>

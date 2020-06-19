@@ -9,7 +9,7 @@ function Form(props) {
       </div>
 
       <div className="method-select">
-          <p> Choose REST method:</p>
+        <p> Choose REST method:</p>
         <select onChange={props.onMethodChange}>
           <option value="GET">Get</option>
           <option value="POST">Post</option>
@@ -19,7 +19,7 @@ function Form(props) {
         </select>
       </div>
       <button id="submit-btn"
-      onClick={props.onSubmit}>Submit</button>
+        onClick={props.onSubmit}>Submit</button>
     </div>
   );
 }

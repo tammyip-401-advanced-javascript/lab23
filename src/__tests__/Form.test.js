@@ -1,38 +1,57 @@
 import React from 'react';
-import Counter from '../components/Results.js';
+import Form from '../components/Form.js';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
-describe('couter state change works as expected', () => {
-  it('lets you add', () => {
-    let component = shallow(<Counter />);
+const defaultMockProps = {
+  url: 'abc',
+  onURLChange: () => { },
+  onMethodChange: () => { },
+  onSubmit: () => { }
+}
 
-    //simulate a user clicking +
-    component.find('span.up.clicker').simulate('click', {});
+describe('Form', () => {
+  it('renders correctly', () => {
+    const component = mount(<Form {...defaultMockProps} />);
 
-    expect(component.state('count')).toBe(1);
-    expect(component.state('polarity')).toBe('positive');
+    // console.log(component.find('input').html())
+    expect(component.find('input').prop('value')).toBe(defaultMockProps.url);
+    // console.log(component.find('button').text())
+    expect(component.find('button').text()).toBe('Submit');
+    expect(component.find('option').at(0).prop('value')).toBe('GET');
+    expect(component.find('option').at(1).prop('value')).toBe('POST');
+    expect(component.find('option').at(2).prop('value')).toBe('PUT');
+    expect(component.find('option').at(3).prop('value')).toBe('DELETE');
+    expect(component.find('option').at(4).prop('value')).toBe('PATCH');
   });
-  it('lets you add', () => {
-    let component = shallow(<Counter />);
 
-    //simulate a user clicking -
-    component.find('span.down.clicker').simulate('click', {});
+  it('trigger onURLChange correctly', () => {
+    const mockOnURLChange = jest.fn();
+    const component = mount(
+      <Form {...defaultMockProps} onURLChange={mockOnURLChange} />);
 
-    expect(component.state('count')).toBe(-1);
-    expect(component.state('polarity')).toBe('negative');
+    component.find('input').simulate('change', {});
+    expect(mockOnURLChange).toBeCalled();
+  });
+
+  it('trigger onMethodChange correctly', () => {
+    const mockOnMethodChange = jest.fn();
+    const component = mount(
+      <Form {...defaultMockProps} onMethodChange={mockOnMethodChange} />);
+
+    component.find('select').simulate('change', {});
+    expect(mockOnMethodChange).toBeCalled();
+  });
+
+  it('trigger onSubmit correctly', () => {
+    const mockOnSubmit = jest.fn();
+    const component = mount(
+      <Form {...defaultMockProps} onSubmit={mockOnSubmit} />);
+
+    component.find('button').simulate('click', {});
+    expect(mockOnSubmit).toBeCalled();
+
   });
 });
-
-// template
-// describe('My component', () => {
-//   it('correctly changes the state variable *count* on button click', () => {
-//     let component = mount(<MyComponent />);
-//     let btn = component.find('button#my-btn');
-
-//     btn.simulate('click');
-//     expect(component.state('count')).toBe(1);
-//   });
-// });
