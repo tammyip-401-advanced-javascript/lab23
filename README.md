@@ -6,7 +6,7 @@ Author: Tammy Ip
 
 Links and Resources (see below)
 submission PR: `https://github.com/tammyip-401-advanced-javascript/lab23/pull/1`
-Sandbox: `https://4t0qr.codesandbox.io/`
+Sandbox: `https://codesandbox.io/s/4t0qr`
 Netlify: `https://lab23.netlify.app/`
 
 
@@ -18,6 +18,7 @@ Netlify: `https://www.youtube.com/watch?v=sGBdp9r2GSg`
 Setup
 
 + npm i
++ npm install node-sass
 + start server with npm start
 
 + do npm run build to generate the build file for deployment
